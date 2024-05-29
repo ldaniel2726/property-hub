@@ -1,16 +1,19 @@
 <div class="justify-between w-full flex p-6">
-	<div class="justify-self-start font-bold">Best Logo</div>
+	<a class="justify-self-start font-bold" href="/">Best Logo</a>
 	<div class="flex">
 		<a class="px-6 uppercase" href="/">Home</a>
 		<a class="px-6 uppercase" href="/properties/">Properties</a>
 		<a class="px-6 uppercase" href="/about.html">About</a>
 		<a class="px-6 uppercase" href="/contact.html">Contact</a>
 	</div>
-	<div>+1 (403) 000 000</div>
+	<a class="underline" href="tel:+1 (403) 000 000">+1 (403) 000 000</a>
 	<script>
 		switch (window.location.pathname) {
 			case '/':
 				document.querySelector('a[href="/"]').classList.add('underline');
+				break;
+			case '':
+				document.querySelector('a[href="/"]').classList.add("underline");
 				break;
 			case '/properties/':
 				document.querySelector('a[href="/properties/"]').classList.add('underline');
