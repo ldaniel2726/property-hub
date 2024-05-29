@@ -1,0 +1,26 @@
+<div class="justify-between w-full flex p-6">
+	<div class="justify-self-start font-bold">Best Logo</div>
+	<div class="flex">
+		<a class="px-6 uppercase" href="/">Home</a>
+		<a class="px-6 uppercase" href="/properties/">Properties</a>
+		<a class="px-6 uppercase" href="/about.html">About</a>
+		<a class="px-6 uppercase" href="/contact.html">Contact</a>
+	</div>
+	<div>+1 (403) 000 000</div>
+	<script>
+		switch (window.location.pathname) {
+			case '/':
+				document.querySelector('a[href="/"]').classList.add('underline');
+				break;
+			case '/properties/':
+				document.querySelector('a[href="/properties/"]').classList.add('underline');
+				break;
+			case '/about.html':
+				document.querySelector('a[href="/about.html"]').classList.add('underline');
+				break;
+			case '/contact.html':
+				document.querySelector('a[href="/contact.html"]').classList.add('underline');
+				break;
+		}
+	</script>
+</div>
