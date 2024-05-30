@@ -1,29 +1,54 @@
 <div class="justify-between w-full flex p-6">
 	<a class="justify-self-start font-bold" href="/">Best Logo</a>
 	<div class="flex">
-		<a class="px-6 uppercase" href="/">Home</a>
-		<a class="px-6 uppercase" href="/properties/">Properties</a>
-		<a class="px-6 uppercase" href="/about.html">About</a>
-		<a class="px-6 uppercase" href="/contact.html">Contact</a>
+		<a id="home" class="mx-6 uppercase expanding-underline" href="/">Home</a>
+		<a id="properties" class="mx-6 uppercase expanding-underline" href="/properties/">Properties</a>
+		<a id="about" class="mx-6 uppercase expanding-underline" href="/about.html">About</a>
+		<a id="contact" class="mx-6 uppercase expanding-underline" href="/contact.html">Contact</a>
 	</div>
 	<a class="underline" href="tel:+1 (403) 000 000">+1 (403) 000 000</a>
 	<script>
 		switch (window.location.pathname) {
 			case '/':
-				document.querySelector('a[href="/"]').classList.add('underline');
+				document.getElementById("home").classList.add('underline');
 				break;
 			case '':
-				document.querySelector('a[href="/"]').classList.add("underline");
+				document.getElementById("home").classList.add("underline");
 				break;
 			case '/properties/':
-				document.querySelector('a[href="/properties/"]').classList.add('underline');
+				document.getElementById("properties").classList.add('underline');
 				break;
 			case '/about.html':
-				document.querySelector('a[href="/about.html"]').classList.add('underline');
+				document.getElementById("about").classList.add('underline');
 				break;
 			case '/contact.html':
-				document.querySelector('a[href="/contact.html"]').classList.add('underline');
+				document.getElementById("contact").classList.add('underline');
 				break;
 		}
 	</script>
+	<style>
+		.expanding-underline {
+			text-decoration: none;
+			display: inline-block;
+  			position: relative;
+		}
+
+		.expanding-underline:after {    
+			background: none repeat scroll 0 0 transparent;
+			bottom: 0;
+			content: "";
+			display: block;
+			height: 2px;
+			left: 50%;
+			position: absolute;
+			background: #000;
+			transition: width 0.3s ease 0s, left 0.3s ease 0s;
+			width: 0;
+		}
+
+		.expanding-underline:hover:after {
+			width: 100%;
+			left: 0;
+		}
+	</style>
 </div>
