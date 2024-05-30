@@ -8,47 +8,43 @@
 	</div>
 	<a class="underline" href="tel:+1 (403) 000 000">+1 (403) 000 000</a>
 	<script>
-		switch (window.location.pathname) {
-			case '/':
-				document.getElementById("home").classList.add('underline');
-				break;
-			case '':
-				document.getElementById("home").classList.add("underline");
-				break;
-			case '/properties/':
-				document.getElementById("properties").classList.add('underline');
-				break;
-			case '/about.html':
-				document.getElementById("about").classList.add('underline');
-				break;
-			case '/contact.html':
-				document.getElementById("contact").classList.add('underline');
-				break;
-		}
-	</script>
+        const path = window.location.pathname;
+        const normalizedPath = path.endsWith('/') && path.length > 1 ? path.slice(0, -1) : path;
+        const pageMap = {
+            '/': 'home',
+            '/properties': 'properties',
+            '/about.html': 'about',
+            '/contact.html': 'contact'
+        };
+
+        if (pageMap[normalizedPath]) {
+            document.getElementById(pageMap[normalizedPath]).classList.add('selection-underline');
+        }
+    </script>
 	<style>
 		.expanding-underline {
-			text-decoration: none;
-			display: inline-block;
-  			position: relative;
-		}
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+        }
 
-		.expanding-underline:after {    
-			background: none repeat scroll 0 0 transparent;
-			bottom: 0;
-			content: "";
-			display: block;
-			height: 2px;
-			left: 50%;
-			position: absolute;
-			background: #000;
-			transition: width 0.3s ease 0s, left 0.3s ease 0s;
-			width: 0;
-		}
+        .expanding-underline:after {    
+            background: none repeat scroll 0 0 transparent;
+            bottom: 0;
+            content: "";
+            display: block;
+            height: 2px;
+            left: 50%;
+            position: absolute;
+            background: #000;
+            transition: width 0.3s ease 0s, left 0.3s ease 0s;
+            width: 0;
+        }
 
-		.expanding-underline:hover:after {
-			width: 100%;
-			left: 0;
-		}
+        .expanding-underline:hover:after,
+		.selection-underline:after {
+            width: 100%;
+            left: 0;
+        }
 	</style>
 </div>
