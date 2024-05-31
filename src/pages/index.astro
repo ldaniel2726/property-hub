@@ -1,11 +1,16 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Head from '../components/Head.astro';
+import BannerWithSearch from '../components/BannerWithSearch.astro';
 ---
 
 <html lang="en">
 	<Head title="Home"/>
 	<body>
-		<Navbar/>
+		<div class="h-dvh flex flex-col">
+			<Navbar/>
+			<BannerWithSearch/>
+		</div>
+		<div class="h-40"></div>
 	</body>
 </html>

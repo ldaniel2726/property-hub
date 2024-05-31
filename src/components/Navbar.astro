@@ -16,8 +16,8 @@
         </div>
         <a class="underline w-2/6 md:w-auto text-right" href="tel:+1 (403) 000 000">+1 (403) 000 000</a>
     </div>
-    <div id="mobile-nav-links" class="hidden w-full flex justify-center bg-white pb-4">
-        <div class="w-min flex flex-col space-y-2 mt-4">
+    <div id="mobile-nav-links" class="hidden w-full flex justify-center bg-white overflow-hidden transition-all duration-500 ease-in-out">
+        <div class="w-min flex flex-col space-y-2 mt-4 pb-4">
             <a id="home-mobile" class="relative uppercase expanding-underline text-center" href="/">Home</a>
             <a id="properties-mobile" class="relative uppercase expanding-underline text-center" href="/properties/">Properties</a>
             <a id="about-mobile" class="relative uppercase expanding-underline text-center" href="/about.html">About</a>
@@ -47,6 +47,13 @@
 
         menuButton.addEventListener('click', () => {
             navLinks.classList.toggle('hidden');
+            if (!navLinks.classList.contains('hidden')) {
+                navLinks.style.maxHeight = navLinks.scrollHeight + "px";
+            } else {
+                navLinks.classList.toggle('hidden');
+                navLinks.style.maxHeight = "0";
+                setTimeout(() => navLinks.classList.toggle('hidden'), 500);
+            }
         });
     });
 </script>
@@ -67,5 +74,9 @@
     .selection-underline::after {
         width: 100%;
         left: 0;
+    }
+
+    #mobile-nav-links {
+        max-height: 0;
     }
 </style>
