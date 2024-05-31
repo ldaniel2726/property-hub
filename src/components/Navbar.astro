@@ -1,50 +1,71 @@
-<div class="justify-between w-full flex p-6">
-	<a class="justify-self-start font-bold" href="/">Best Logo</a>
-	<div class="flex">
-		<a id="home" class="mx-6 uppercase expanding-underline" href="/">Home</a>
-		<a id="properties" class="mx-6 uppercase expanding-underline" href="/properties/">Properties</a>
-		<a id="about" class="mx-6 uppercase expanding-underline" href="/about.html">About</a>
-		<a id="contact" class="mx-6 uppercase expanding-underline" href="/contact.html">Contact</a>
-	</div>
-	<a class="underline" href="tel:+1 (403) 000 000">+1 (403) 000 000</a>
-	<script>
+<div class="flex flex-col items-center p-6">
+    <div class="flex flex-row md:items-center w-full justify-between">
+        <a class="font-bold text-xl w-2/6 md:w-auto" href="/">Best Logo</a>
+        <div class="md:hidden w-1/6 flex justify-center md:w-auto">
+            <button id="menu-button" class="text-black focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+        <div id="nav-links" class="hidden md:flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 w-2/6 md:w-auto">
+            <a id="home" class="relative uppercase expanding-underline" href="/">Home</a>
+            <a id="properties" class="relative uppercase expanding-underline" href="/properties/">Properties</a>
+            <a id="about" class="relative uppercase expanding-underline" href="/about.html">About</a>
+            <a id="contact" class="relative uppercase expanding-underline" href="/contact.html">Contact</a>
+        </div>
+        <a class="underline w-2/6 md:w-auto text-right" href="tel:+1 (403) 000 000">+1 (403) 000 000</a>
+    </div>
+    <div id="mobile-nav-links" class="hidden w-full flex justify-center bg-white pb-4">
+        <div class="w-min flex flex-col space-y-2 mt-4">
+            <a id="home-mobile" class="relative uppercase expanding-underline text-center" href="/">Home</a>
+            <a id="properties-mobile" class="relative uppercase expanding-underline text-center" href="/properties/">Properties</a>
+            <a id="about-mobile" class="relative uppercase expanding-underline text-center" href="/about.html">About</a>
+            <a id="contact-mobile" class="relative uppercase expanding-underline text-center" href="/contact.html">Contact</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
         const path = window.location.pathname;
         const normalizedPath = path.endsWith('/') && path.length > 1 ? path.slice(0, -1) : path;
         const pageMap = {
-            '/': 'home',
-            '/properties': 'properties',
-            '/about.html': 'about',
-            '/contact.html': 'contact'
+            '/': ['home', 'home-mobile'],
+            '/properties': ['properties', 'properties-mobile'],
+            '/about.html': ['about', 'about-mobile'],
+            '/contact.html': ['contact', 'contact-mobile']
         };
 
-        if (pageMap[normalizedPath]) {
-            document.getElementById(pageMap[normalizedPath]).classList.add('selection-underline');
-        }
-    </script>
-	<style>
-		.expanding-underline {
-            text-decoration: none;
-            display: inline-block;
-            position: relative;
+        const currentPage = pageMap[normalizedPath];
+        if (currentPage) {
+            currentPage.forEach(id => document.getElementById(id).classList.add('selection-underline'));
         }
 
-        .expanding-underline:after {    
-            background: none repeat scroll 0 0 transparent;
-            bottom: 0;
-            content: "";
-            display: block;
-            height: 2px;
-            left: 50%;
-            position: absolute;
-            background: #000;
-            transition: width 0.3s ease 0s, left 0.3s ease 0s;
-            width: 0;
-        }
+        const menuButton = document.getElementById('menu-button');
+        const navLinks = document.getElementById('mobile-nav-links');
 
-        .expanding-underline:hover:after,
-		.selection-underline:after {
-            width: 100%;
-            left: 0;
-        }
-	</style>
-</div>
+        menuButton.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+        });
+    });
+</script>
+
+<style>
+    .expanding-underline::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -2px;
+        left: 50%;
+        background-color: black;
+        transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    .expanding-underline:hover::after,
+    .selection-underline::after {
+        width: 100%;
+        left: 0;
+    }
+</style>
