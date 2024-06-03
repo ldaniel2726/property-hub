@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar.astro';
 import Head from '../components/Head.astro';
 import BannerWithSearch from '../components/BannerWithSearch.astro';
 import Footer from '../components/Footer.astro';
-import FeaturedProperties from '../components/FeaturedProperties.astro';
+import ListingItem from '../components/ListingItem.astro';
 ---
 
 <html lang="en">
@@ -13,7 +13,14 @@ import FeaturedProperties from '../components/FeaturedProperties.astro';
 			<Navbar/>
 			<BannerWithSearch/>
 		</div>
-		<FeaturedProperties/>
+		<div class="container mx-auto p-6">
+			<h1 class="text-3xl font-bold text-center mb-8">The Best Properties</h1>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<ListingItem rentOrBuy={"Rent"} title={"Villa House"} image={"banner-image.jpg"} price={1500} category={"Villas"} desc={"Lorem ipsum dolor sit amet, wisi nemore fastidii at vis, eos equidem admodum"} size={290} bedrooms={4}/>
+				<ListingItem rentOrBuy={"Buy"} title={"Downtown Apartment"} image={"banner-image.jpg"} price={265000} category={"Apartments"} desc={"Lorem ipsum dolor sit amet, wisi nemore fastidii at vis, eos equidem admodum"} size={80} bedrooms={2}/>
+			</div>
+		</div>
+		
 		<div class="h-40"></div>
 		<Footer/>
 	</body>

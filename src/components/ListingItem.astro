@@ -1,0 +1,44 @@
+---
+interface Props {
+    rentOrBuy: string;
+	title: string;
+    image: string;
+    price: number;
+    category: string;
+    desc: string;
+    size: number;
+    bedrooms: number;
+}
+
+const { rentOrBuy } = Astro.props;
+const { title } = Astro.props;
+const { image } = Astro.props;
+const { price } = Astro.props;
+const { category } = Astro.props;
+const { desc } = Astro.props;
+const { size } = Astro.props;
+const { bedrooms } = Astro.props;
+
+let mo = "/mo";
+if (rentOrBuy === "Buy") {
+    mo = "";
+}
+
+---
+
+<div class="bg-white rounded-lg shadow-xl overflow-hidden relative">
+    <div class="absolute top-4 left-4 bg-black text-white py-1 px-3 rounded">{rentOrBuy}</div>
+    <img src={image} alt="South Sun House" class="w-full h-48 object-cover">
+    <div class="p-6">
+        <p class="text-gray-600">{category}</p>
+        <h3 class="text-xl font-semibold mb-2">{title}</h3>
+        <p class="text-gray-700 mb-4">{desc}</p>
+        <div class="flex justify-between items-center">
+            <div class="text-2xl font-bold text-gray-900">${price}<span class="text-sm font-normal">{mo}</span></div>
+            <div class="flex space-x-4 text-gray-600">
+                <span class="flex items-center"><svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4C8.13401 4 5 7.13401 5 11C5 16.25 12 21 12 21C12 21 19 16.25 19 11C19 7.13401 15.866 4 12 4ZM12 14C10.3431 14 9 12.6569 9 11C9 9.34315 10.3431 8 12 8C13.6569 8 15 9.34315 15 11C15 12.6569 13.6569 14 12 14Z"></path></svg>{size}m²</span>
+                <span class="flex items-center"><svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M9 9H7C5.34315 9 4 10.3431 4 12V19H9V15H15V19H20V12C20 10.3431 18.6569 9 17 9H15H9Z"></path></svg>{bedrooms}</span>
+            </div>
+        </div>
+    </div>
+</div>
