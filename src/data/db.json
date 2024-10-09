@@ -1,0 +1,72 @@
+[
+        {
+            "id": 1,
+            "name": "Sunset Villa",
+            "location": "California, USA",
+            "price": 1200000,
+            "type": "Villa",
+            "bedrooms": 4,
+            "bathrooms": 3,
+            "size": 3500,
+            "amenities": ["Pool", "Garage", "Garden"],
+            "rentOrBuy": "Buy",
+            "desc": "This is a beautiful apartment in the heart of New York City. It is located in a luxury building with a doorman, gym, and elevator. The apartment has 2 bedrooms, 2 bathrooms, and a spacious living room with a view of the city.",
+            "image": "/public/banner-image.jpg"
+        },
+        {
+            "id": 2,
+            "name": "City Apartment",
+            "location": "New York, USA",
+            "price": 850000,
+            "type": "Apartment",
+            "bedrooms": 2,
+            "bathrooms": 2,
+            "size": 1200,
+            "amenities": ["Gym", "Elevator", "Doorman"],
+            "rentOrBuy": "Rent",
+            "desc": "This is a beautiful apartment in the heart of New York City. It is located in a luxury building with a doorman, gym, and elevator. The apartment has 2 bedrooms, 2 bathrooms, and a spacious living room with a view of the city.",
+            "image": "/public/banner-image.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Country House",
+            "location": "Texas, USA",
+            "price": 600000,
+            "type": "House",
+            "bedrooms": 3,
+            "bathrooms": 2,
+            "size": 2500,
+            "amenities": ["Barn", "Garden", "Garage"],
+            "rentOrBuy": "Buy",
+            "desc": "This is a charming country house located in the heart of Texas. It has 3 bedrooms, 2 bathrooms, a spacious living room, and a beautiful garden. The house also comes with a barn and a garage.",
+            "image": "/public/banner-image.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Beach House",
+            "location": "Florida, USA",
+            "price": 2000000,
+            "type": "House",
+            "bedrooms": 5,
+            "bathrooms": 4,
+            "size": 4000,
+            "amenities": ["Pool", "Beach Access", "Garden"],
+            "rentOrBuy": "Buy",
+            "desc": "This is a stunning beach house located in the heart of Florida. It has 5 bedrooms, 4 bathrooms, a spacious living room, and a beautiful garden. The house also comes with a pool and beach access.",
+            "image": "/public/banner-image.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Mountain Cabin",
+            "location": "Colorado, USA",
+            "price": 500000,
+            "type": "Cabin",
+            "bedrooms": 2,
+            "bathrooms": 1,
+            "size": 1500,
+            "amenities": ["Fireplace", "Deck", "Mountain View"],
+            "rentOrBuy": "Buy",
+            "desc": "This is a cozy mountain cabin located in the heart of Colorado. It has 2 bedrooms, 1 bathroom, a spacious living room, and a beautiful deck with a mountain view. The cabin also comes with a fireplace.",
+            "image": "/public/banner-image.jpg"
+        }
+]
