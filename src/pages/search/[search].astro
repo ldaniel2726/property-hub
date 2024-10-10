@@ -1,11 +1,24 @@
 ---
-import Navbar from '../components/Navbar.astro';
-import Head from '../components/Head.astro';
-import ListingItem from '../components/ListingItem.astro';
-import listings from '../data/db.json';
-import Footer from '../components/Footer.astro';
----
+import Navbar from '../../components/Navbar.astro';
+import Head from '../../components/Head.astro';
+import ListingItem from '../../components/ListingItem.astro';
+import listings from '../../data/db.json';
+import Footer from '../../components/Footer.astro';
 
+//getstaticpaths function for the search page
+export async function getStaticPaths() {
+  return [
+    { params: { search: ... } }
+  ];
+}
+
+const search = Astro.params.search;
+
+//filter the listings based on the search term
+
+const filteredListings = listings.filter(listing => listing.name.toLowerCase().includes(search.toLowerCase()));
+
+---
 <html lang="en">
   <Head title="Search Properties"/>
   <body class="bg-gray-200">
@@ -14,7 +27,7 @@ import Footer from '../components/Footer.astro';
     <div class="m-12 flex justify-between">
       <input 
         type="text" 
-        id="search-bar" 
+        id="search-bar"
         placeholder="Search by name..." 
         class="border p-2 rounded-lg w-full"
       />
