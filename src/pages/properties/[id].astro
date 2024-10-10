@@ -1,0 +1,76 @@
+---
+import Navbar from '../../components/Navbar.astro';
+import Head from '../../components/Head.astro';
+import Footer from '../../components/Footer.astro';
+import listings from '../../data/db.json';
+
+export async function getStaticPaths() {
+  // Generate paths from listings data
+  const paths = listings.map(listing => ({
+    params: { id: listing.id.toString() } // Ensure id is a string
+  }));
+
+  console.log('Generated paths:', paths); // Log the generated paths for debugging
+
+  return {
+    paths,
+    fallback: false // or true if you want to enable fallback pages
+  };
+}
+
+// Define getStaticProps function
+export async function getStaticProps({ params }) {
+  // Find the listing by id
+  const listing = listings.find(listing => listing.id.toString() === params.id); // Ensure comparison is between strings
+
+  console.log('Fetched listing:', listing); // Log the fetched listing for debugging
+
+  return {
+    props: {
+      listing
+    }
+  };
+}
+---
+
+<html lang="en">
+  <Head title={listing ? listing.name : 'listing Details'}/>
+  <body>
+    <Navbar/>
+    <div class="m-12">
+      {listing ? (
+        <>
+          <h1 class="font-bold text-4xl text-gray-800">{listing.name}</h1>
+          <div class="flex flex-col md:flex-row mt-8">
+            <img src={listing.image} alt={listing.name} class="w-full md:w-1/2 rounded-lg"/>
+            <div class="md:ml-8 mt-4 md:mt-0">
+              <p class="text-gray-800 text-lg"><strong>Price:</strong> ${listing.price}</p>
+              <p class="text-gray-800 text-lg"><strong>Size:</strong> {listing.size} sqm</p>
+              <p class="text-gray-800 text-lg"><strong>Bedrooms:</strong> {listing.bedrooms}</p>
+              <p class="text-gray-800 text-lg"><strong>Description:</strong> {listing.desc}</p>
+              <form class="mt-8">
+                <h2 class="font-bold text-2xl text-gray-800 mb-4">Contact Seller</h2>
+                <div class="mb-4">
+                  <label for="name" class="block text-gray-800 font-bold mb-2">Name:</label>
+                  <input type="text" id="name" class="border p-2 rounded-lg w-full" required/>
+                </div>
+                <div class="mb-4">
+                  <label for="email" class="block text-gray-800 font-bold mb-2">Email:</label>
+                  <input type="email" id="email" class="border p-2 rounded-lg w-full" required/>
+                </div>
+                <div class="mb-4">
+                  <label for="message" class="block text-gray-800 font-bold mb-2">Message:</label>
+                  <textarea id="message" class="border p-2 rounded-lg w-full" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="bg-gray-800 text-white px-4 py-2 rounded-lg">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </>
+      ) : (
+        <p class="text-center text-gray-500 text-2xl">Loading...</p>
+      )}
+    </div>
+    <Footer/>
+  </body>
+</html>

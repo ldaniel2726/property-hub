@@ -7,13 +7,238 @@ import Footer from '../components/Footer.astro';
 ---
 
 <html lang="en">
-	<Head title="Home"/>
-	<body class="bg-gray-200">
-		<Navbar/>
-		
-		
-        
-		<div class="h-40"></div>
-		<Footer/>
-	</body>
+  <Head title="Search Properties"/>
+  <body>
+    <Navbar/>
+    <h1 class="font-bold m-12 text-4xl text-gray-800">Search Properties</h1>
+    <div class="m-12 flex justify-between">
+      <input 
+        type="text" 
+        id="search-bar" 
+        placeholder="Search by name..." 
+        class="border p-2 rounded-lg w-full"
+      />
+    </div>
+    <div class="m-12 flex justify-between">
+      <div class="relative inline-block text-left">
+        <div class="flex">
+          <label for="sort" class="m-2 font-bold">Sort by:</label>
+          <div id="sort-dropdown" class="dropdown">
+            <button id="sort-button" class="bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center">
+              <span id="sort-selected">Price</span>
+              <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div id="sort-options" class="dropdown-menu hidden absolute mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
+              <div class="py-1">
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100" data-value="price">Price</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100" data-value="size">Size</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100" data-value="bedrooms">Bedrooms</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button id="open-filters" class="bg-gray-800 rounded-lg text-white px-4 py-2">Advanced Filters</button>
+      </div>
+    </div>
+    <div id="filter-modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden justify-center items-center z-10">
+      <div class="bg-white p-8 rounded-lg w-1/2">
+        <h2 class="font-bold text-2xl text-gray-800 mb-4">Advanced Filters</h2>
+        <div class="mb-4">
+          <label for="min-price" class="mr-4 font-bold">Min Price:</label>
+          <input type="number" id="min-price" placeholder="0" class="border p-2 rounded-lg"/>
+        </div>
+        <div class="mb-4">
+          <label for="max-price" class="mr-4 font-bold">Max Price:</label>
+          <input type="number" id="max-price" placeholder="10000" class="border p-2 rounded-lg"/>
+        </div>
+        <div class="mb-4">
+          <label for="min-size" class="mr-4 font-bold">Min Size (sqm):</label>
+          <input type="number" id="min-size" placeholder="0" class="border p-2 rounded-lg"/>
+        </div>
+        <div class="mb-4">
+          <label for="max-size" class="mr-4 font-bold">Max Size (sqm):</label>
+          <input type="number" id="max-size" placeholder="500" class="border p-2 rounded-lg"/>
+        </div>
+        <div class="mb-4">
+          <label for="min-bedrooms" class="mr-4 font-bold">Min Bedrooms:</label>
+          <input type="number" id="min-bedrooms" placeholder="0" class="border p-2 rounded-lg"/>
+        </div>
+        <div class="flex justify-end">
+          <button id="apply-filters" class="bg-gray-800 text-white px-4 py-2 mr-2 rounded-lg">Apply Filters</button>
+          <button id="clear-filters" class="bg-red-500 text-white px-4 py-2 mr-2 rounded-lg">Clear Filters</button>
+          <button id="close-filters" class="bg-gray-800 text-white px-4 py-2 rounded-lg">Close</button>
+        </div>
+      </div>
+    </div>
+    <div class="m-12">
+      <span id="results-counter" class="text-gray-800 font-bold"></span>
+    </div>
+    <div id="no-results" class="m-12 text-center text-gray-500 text-2xl hidden">No results matched the search</div>
+    <div id="listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 m-12">
+      {listings.map(listing => (
+        <div 
+          class="listing-item" 
+          data-listing={JSON.stringify({
+            name: listing.name,
+            price: listing.price,
+            size: listing.size,
+            bedrooms: listing.bedrooms
+          })}
+        >
+          <ListingItem 
+            rentOrBuy={listing.rentOrBuy}
+            title={listing.name}
+            image={listing.image}
+            price={listing.price}
+            category={listing.type}
+            desc={listing.desc}
+            size={listing.size}
+            bedrooms={listing.bedrooms}
+          />
+        </div>
+      ))}
+    </div>
+    <div class="h-10"></div>
+    <Footer/>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const searchBar = document.getElementById('search-bar');
+        const sortButton = document.getElementById('sort-button');
+        const sortOptions = document.getElementById('sort-options');
+        const sortSelected = document.getElementById('sort-selected');
+        const sortLinks = sortOptions.querySelectorAll('a');
+        const openFiltersButton = document.getElementById('open-filters');
+        const closeFiltersButton = document.getElementById('close-filters');
+        const clearFiltersButton = document.getElementById('clear-filters');
+        const filterModal = document.getElementById('filter-modal');
+        const applyFiltersButton = document.getElementById('apply-filters');
+        const minPriceInput = document.getElementById('min-price');
+        const maxPriceInput = document.getElementById('max-price');
+        const minSizeInput = document.getElementById('min-size');
+        const maxSizeInput = document.getElementById('max-size');
+        const minBedroomsInput = document.getElementById('min-bedrooms');
+        const listingsContainer = document.getElementById('listings');
+        const resultsCounter = document.getElementById('results-counter');
+        const noResultsMessage = document.getElementById('no-results');
+        let listings = [...listingsContainer.children];
+
+        const updateResultsCounter = () => {
+          const visibleListings = listings.filter(listing => listing.style.display !== 'none');
+          resultsCounter.textContent = `${visibleListings.length} results found`;
+          noResultsMessage.classList.toggle('hidden', visibleListings.length > 0);
+        };
+
+        const sortListings = (criteria) => {
+          listings.sort((a, b) => {
+            const aData = JSON.parse(a.getAttribute('data-listing'));
+            const bData = JSON.parse(b.getAttribute('data-listing'));
+
+            if (criteria === 'price') {
+              return aData.price - bData.price;
+            } else if (criteria === 'size') {
+              return aData.size - bData.size;
+            } else if (criteria === 'bedrooms') {
+              return aData.bedrooms - bData.bedrooms;
+            }
+            return 0;
+          });
+
+          listingsContainer.innerHTML = '';
+          listings.forEach(listing => listingsContainer.appendChild(listing));
+          updateResultsCounter();
+        };
+
+        const filterListings = () => {
+          const minPrice = parseFloat(minPriceInput.value) || 0;
+          const maxPrice = parseFloat(maxPriceInput.value) || Infinity;
+          const minSize = parseFloat(minSizeInput.value) || 0;
+          const maxSize = parseFloat(maxSizeInput.value) || Infinity;
+          const minBedrooms = parseFloat(minBedroomsInput.value) || 0;
+
+          listings.forEach(listing => {
+            const data = JSON.parse(listing.getAttribute('data-listing'));
+            let shouldDisplay = true;
+
+            if (data.price < minPrice || data.price > maxPrice) {
+              shouldDisplay = false;
+            } else if (data.size < minSize || data.size > maxSize) {
+              shouldDisplay = false;
+            } else if (data.bedrooms < minBedrooms) {
+              shouldDisplay = false;
+            }
+
+            listing.style.display = shouldDisplay ? '' : 'none';
+          });
+
+          updateResultsCounter();
+        };
+
+        const clearFilters = () => {
+          minPriceInput.value = '';
+          maxPriceInput.value = '';
+          minSizeInput.value = '';
+          maxSizeInput.value = '';
+          minBedroomsInput.value = '';
+          filterListings();
+        };
+
+        const filterListingsBySearch = () => {
+          const searchTerm = searchBar.value.toLowerCase();
+
+          listings.forEach(listing => {
+            const data = JSON.parse(listing.getAttribute('data-listing'));
+            const shouldDisplay = data.name.toLowerCase().includes(searchTerm);
+
+            listing.style.display = shouldDisplay ? '' : 'none';
+          });
+
+          updateResultsCounter();
+        };
+
+        searchBar.addEventListener('input', filterListingsBySearch);
+
+        sortButton.addEventListener('click', () => {
+          sortOptions.classList.toggle('hidden');
+        });
+
+        sortLinks.forEach(link => {
+          link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const value = link.getAttribute('data-value');
+            sortSelected.textContent = link.textContent;
+            sortOptions.classList.add('hidden');
+            sortListings(value);
+          });
+        });
+
+        openFiltersButton.addEventListener('click', () => {
+          filterModal.classList.remove('hidden');
+          filterModal.classList.add('flex');
+        });
+
+        closeFiltersButton.addEventListener('click', () => {
+          filterModal.classList.remove('flex');
+          filterModal.classList.add('hidden');
+        });
+
+        applyFiltersButton.addEventListener('click', () => {
+          filterListings();
+          filterModal.classList.remove('flex');
+          filterModal.classList.add('hidden');
+        });
+
+        clearFiltersButton.addEventListener('click', () => {
+          clearFilters();
+        });
+
+        // Initial sort and filter
+        sortListings('price');
+        filterListings();
+      });
+    </script>
+  </body>
 </html>
