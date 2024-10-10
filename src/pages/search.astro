@@ -8,7 +8,7 @@ import Footer from '../components/Footer.astro';
 
 <html lang="en">
   <Head title="Search Properties"/>
-  <body>
+  <body class="bg-gray-200">
     <Navbar/>
     <h1 class="font-bold m-12 text-4xl text-gray-800">Search Properties</h1>
     <div class="m-12 flex justify-between">
@@ -90,6 +90,7 @@ import Footer from '../components/Footer.astro';
           })}
         >
           <ListingItem 
+		  	    id={listing.id}
             rentOrBuy={listing.rentOrBuy}
             title={listing.name}
             image={listing.image}
