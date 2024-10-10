@@ -1,5 +1,6 @@
 ---
 interface Props {
+    id: string;
     rentOrBuy: string;
 	title: string;
     image: string;
@@ -10,6 +11,7 @@ interface Props {
     bedrooms: number;
 }
 
+const { id } = Astro.params;
 const { rentOrBuy } = Astro.props;
 const { title } = Astro.props;
 const { image } = Astro.props;
