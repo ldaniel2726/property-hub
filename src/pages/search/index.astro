@@ -4,32 +4,12 @@ import Head from '../../components/Head.astro';
 import ListingItem from '../../components/ListingItem.astro';
 import listings from '../../data/db.json';
 import Footer from '../../components/Footer.astro';
-
-export async function getStaticPaths() {
-  return [
-    { params: { search: 'home' } },
-    { params: { search: 'about' } },
-    { params: { search: 'contact' } },
-    { params: { search: 'house'} }
-  ];
-}
-
-/*export async function getStaticProps({ params }) {
-  return {
-    props: {
-      search: params.search
-    }
-  };
-}*/
-
-const { search } = Astro.params;
-
 ---
 <html lang="en">
   <Head title="Search Properties"/>
   <body class="bg-gray-200">
     <Navbar/>
-    <h1 class="font-bold m-12 text-4xl text-gray-800">Search Properties: {JSON.stringify(search)}</h1>
+    <h1 class="font-bold m-12 text-4xl text-gray-800">Search Properties</h1>
     <div class="m-12 flex justify-between">
       <input 
         type="text" 

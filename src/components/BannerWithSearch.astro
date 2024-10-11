@@ -11,11 +11,11 @@
         </h1>
       </div>
       <div class="h-full flex flex-col justify-center">
-          <div class="flex ml-10 shadow-lg opacity-90">
+          <!--<div class="flex ml-10 shadow-lg opacity-90">
             <button id="buy" class="bg-gray-400 text-gray-800 py-1 px-4 rounded-tl-md active hover: duration-300 transition-all ease-in-out">Buy</button>
             <div class="w-0.5 bg-transparent"></div>
             <button id="rent" class="bg-gray-400 text-gray-800 py-1 px-4 rounded-tr-md hover: duration-300 transition-all ease-in-out">Rent</button>
-          </div>
+          </div>-->
           <div class="bg-white w-full bg-opacity-75 p-4 rounded-md flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
             <!--<select class="rounded-md py-2 px-4 w-full md:w-auto text-gray-800">
               <option>Category</option>
@@ -23,10 +23,10 @@
             <select class="rounded-md py-2 px-4 w-full md:w-auto text-gray-800">
               <option>Location</option>
             </select>-->
-            <div class="relative w-full md:w-auto">
+            <!--<div class="relative w-full md:w-auto">
               <input type="text" id="search" placeholder="Search..." class="rounded-md py-2 px-4 w-full md:w-auto text-gray-800" />
               <div id="results" class="absolute bg-white border border-gray-300 rounded-md mt-1 w-full max-h-60 overflow-y-auto hidden"></div>
-            </div>
+            </div>-->
             <!--<button class="bg-yellow-500 text-gray-800 py-2 px-4 rounded-md flex items-center hover:bg-yellow-600 duration-300 transition-all ease-in-out">
               <svg class="h-5 w-5 mr-2" fill="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M0 416c0 17.7 14.3 32 32 32l54.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 448c17.7 0 32-14.3 32-32s-14.3-32-32-32l-246.7 0c-12.3-28.3-40.5-48-73.3-48s-61 19.7-73.3 48L32 384c-17.7 0-32 14.3-32 32zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM320 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32-80c-32.8 0-61 19.7-73.3 48L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l246.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48l54.7 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-54.7 0c-12.3-28.3-40.5-48-73.3-48zM192 128a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm73.3-64C253 35.7 224.8 16 192 16s-61 19.7-73.3 48L32 64C14.3 64 0 78.3 0 96s14.3 32 32 32l86.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"/></svg>
@@ -106,10 +106,7 @@
       });
 
       const handleSearch = () => {
-        const searchTerm = searchInput.value.trim();
-        if (searchTerm) {
-          window.location.href = `/search/${encodeURIComponent(searchTerm)}`;
-        }
+        window.location.href = `/search/`;
       };
 
       searchInput.addEventListener('keypress', (event) => {
@@ -119,6 +116,10 @@
       });
 
       searchButton.addEventListener('click', handleSearch);
+    });
+
+    document.getElementById('search-button').addEventListener('click', () => {
+      window.location.href = '/search/';
     });
   </script>
 
