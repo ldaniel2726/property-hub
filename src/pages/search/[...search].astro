@@ -5,25 +5,23 @@ import ListingItem from '../../components/ListingItem.astro';
 import listings from '../../data/db.json';
 import Footer from '../../components/Footer.astro';
 
-//getstaticpaths function for the search page
 export async function getStaticPaths() {
   return [
-    { params: { search: ... } }
+    { params: { search: 'home' } },
+    { params: { search: 'about' } },
+    { params: { search: 'contact' } },
+    { params: { search: 'house'}}
   ];
 }
 
-const search = Astro.params.search;
-
-//filter the listings based on the search term
-
-const filteredListings = listings.filter(listing => listing.name.toLowerCase().includes(search.toLowerCase()));
+const { search } = Astro.params;
 
 ---
 <html lang="en">
   <Head title="Search Properties"/>
   <body class="bg-gray-200">
     <Navbar/>
-    <h1 class="font-bold m-12 text-4xl text-gray-800">Search Properties</h1>
+    <h1 class="font-bold m-12 text-4xl text-gray-800">Search Properties: {JSON.stringify(search)}</h1>
     <div class="m-12 flex justify-between">
       <input 
         type="text" 
