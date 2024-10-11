@@ -10,9 +10,17 @@ export async function getStaticPaths() {
     { params: { search: 'home' } },
     { params: { search: 'about' } },
     { params: { search: 'contact' } },
-    { params: { search: 'house'}}
+    { params: { search: 'house'} }
   ];
 }
+
+/*export async function getStaticProps({ params }) {
+  return {
+    props: {
+      search: params.search
+    }
+  };
+}*/
 
 const { search } = Astro.params;
 
