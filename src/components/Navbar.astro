@@ -42,7 +42,7 @@
             '/property-hub/search': ['properties', 'properties-mobile']
         };
 
-        const currentPage = pageMap[normalizedPath];
+        const currentPage = pageMap[path];
         if (currentPage) {
             currentPage.forEach(id => document.getElementById(id).classList.add('selection-underline'));
         }
