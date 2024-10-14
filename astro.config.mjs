@@ -9,4 +9,5 @@ export default defineConfig({
     enabled: false
   },
   site: 'https://property-hub.github.io',
+  base: 'property-hub',
 });
