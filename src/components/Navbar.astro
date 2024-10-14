@@ -22,10 +22,10 @@
     </div>
     <div id="mobile-nav-links" class="hidden w-full flex justify-center overflow-hidden transition-all duration-500 ease-in-out text-gray-800">
         <div class="w-min flex flex-col space-y-2 mt-4 pb-4">
-            <a id="home-mobile" class="relative uppercase expanding-underline text-center" href="/">Home</a>
-            <a id="properties-mobile" class="relative uppercase expanding-underline text-center" href="/properties/">Properties</a>
-            <a id="about-mobile" class="relative uppercase expanding-underline text-center" href="/about">About</a>
-            <a id="contact-mobile" class="relative uppercase expanding-underline text-center" href="/contact">Contact</a>
+            <a id="home-mobile" class="relative uppercase expanding-underline text-center" href="/property-hub/">Home</a>
+            <a id="properties-mobile" class="relative uppercase expanding-underline text-center" href="/property-hub/properties/">Properties</a>
+            <a id="about-mobile" class="relative uppercase expanding-underline text-center" href="/property-hub/about">About</a>
+            <a id="contact-mobile" class="relative uppercase expanding-underline text-center" href="/property-hub/contact">Contact</a>
         </div>
     </div>
 </div>
@@ -35,11 +35,11 @@
         const path = window.location.pathname;
         const normalizedPath = path.endsWith('/') && path.length > 1 ? path.slice(0, -1) : path;
         const pageMap = {
-            '/': ['home', 'home-mobile'],
-            '/properties': ['properties', 'properties-mobile'],
-            '/about': ['about', 'about-mobile'],
-            '/contact': ['contact', 'contact-mobile'],
-            '/search': ['properties', 'properties-mobile']
+            '/property-hub/': ['home', 'home-mobile'],
+            '/property-hub/properties': ['properties', 'properties-mobile'],
+            '/property-hub/about': ['about', 'about-mobile'],
+            '/property-hub/contact': ['contact', 'contact-mobile'],
+            '/property-hub/search': ['properties', 'properties-mobile']
         };
 
         const currentPage = pageMap[normalizedPath];
